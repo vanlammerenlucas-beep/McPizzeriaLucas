@@ -28,6 +28,11 @@ def maakTabellenAan():
  gerechtNaam TEXT NOT NULL,
  gerechtPrijs REAL NOT NULL);""")
  print("Tabel 'tbl_pizzas' aangemaakt.")
+ cursor.execute("""
+ CREATE TABLE IF NOT EXISTS tbl_klanten(
+ klantNr INTEGER PRIMARY KEY AUTOINCREMENT,
+ klantAchternaam TEXT);""")
+ print("Tabel 'tbl_klanten' aangemaakt.")
 
 def voegPizzaToe(naam_nieuwe_pizza, prijs_nieuwe_pizza):
     cursor.execute("INSERT INTO tbl_pizzas VALUES(NULL, ?, ? )", (naam_nieuwe_pizza, prijs_nieuwe_pizza))
@@ -41,14 +46,29 @@ def verwijderPizza(gerechtNaam):
    db.commit() #gegevens naar de database wegschrijven
    printTabel("tbl_pizzas")
 
+def pasGerechtAan(gerechtID, nieuweGerechtNaam, nieuwePrijs):
+ cursor.execute("UPDATE tbl_pizzas SET gerechtNaam = ?, gerechtPrijs = ? WHERE gerechtID = ?", (nieuweGerechtNaam, nieuwePrijs, gerechtID ))
+ db.commit() #gegevens naar de database wegschrijven
+ print("Gerecht aangepast")
+ printTabel("tbl_pizzas")
+
+
+def voegKlantToe(naam_nieuwe_klant):
+ cursor.execute("INSERT INTO tbl_klanten VALUES(NULL, ?)", (naam_nieuwe_klant,))
+ db.commit()
+ print("Klant toegevoegd:")
+ printTabel('tbl_klanten')
 
 
 
 
 ### --------- Hoofdprogramma  ---------------
-maakTabellenAan()
-printTabel("tbl_pizzas")
-voegPizzaToe("Margarita", 9.5)
-voegPizzaToe("Hawaii", 12.25)
-voegPizzaToe("Salami", 10.0)
-verwijderPizza("Hawaii")
+# maakTabellenAan()
+# printTabel("tbl_pizzas")
+# voegPizzaToe("Margarita", 9.5)
+# voegPizzaToe("Hawaii", 12.25)
+# voegPizzaToe("Salami", 10.0)
+# verwijderPizza("Hawaii")
+# pasGerechtAan(3, "Salamiiii", 19.25)
+# voegKlantToe("Janssen")
+# voegKlantToe("Bakker")
