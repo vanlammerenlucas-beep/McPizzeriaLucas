@@ -22,17 +22,18 @@ venster = Tk()
 venster.iconbitmap("MC_icon.ico") #Let op: Dit werkt niet op een MAC! Zet deze regel dan in commentaar
 venster.wm_title("MC Pizzeria")
 
-
-
 labelIntro = Label(venster, text="Welkom!")
 labelIntro.grid(row=0, column=0, sticky="W")
 knopSluit = Button(venster, text="Sluiten",width=12,command=venster.destroy)
 knopSluit.grid(row=17, column=4)
 
+labelNaam = Label(venster, text="Klantnaam:")
+labelNaam.grid(row=1, column=0)
 
+ingevoerde_klantnaam = StringVar()
 
-venster.mainloop()
-
+invoerveldKlantnaam = Entry(venster, textvariable=ingevoerde_klantnaam)
+invoerveldKlantnaam.grid(row=1, column=1, sticky="W")
 
 
 
